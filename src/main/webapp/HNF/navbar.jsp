@@ -15,7 +15,7 @@
     <div class="container">
         <!-- Brand/Logo -->
         <a class="navbar-brand fw-bold text-primary" href="index.jsp">
-            <i class="fas fa-calendar-star me-2"></i>SmartEvent
+            <i class="fas fa-calendar-star me-2"></i>Eventify
         </a>
 
         <!-- Mobile menu button -->

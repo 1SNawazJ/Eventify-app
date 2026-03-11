@@ -14,7 +14,7 @@ public class UserDAOimpl implements UserDAO {
     
 	private Connection con;
 	public UserDAOimpl() {
-		con=DBConnection.getConnection();
+		this.con=DBConnection.getConnection();
 	}
 	@Override
 	public boolean saveUser(User user) {

@@ -1,18 +1,18 @@
 package com.eventify.model;
 
+import java.sql.Date;
+
 public class Event {
  
  
- public Event(Integer eventId, Integer userId, String eventType, String venue, String eventDate, Integer guestCount,
-			String paymentStatus) {
+ public Event(Integer userId, String eventType,Date eventDate, String venue, Integer guestCount) {
 		super();
-		this.eventId = eventId;
 		this.userId = userId;
 		this.eventType = eventType;
 		this.venue = venue;
 		this.eventDate = eventDate;
 		this.guestCount = guestCount;
-		this.paymentStatus = paymentStatus;
+		
 	}
  public Event() {
 	 
@@ -21,7 +21,7 @@ public class Event {
  private Integer userId;
  private String eventType;
  private String venue;
- private String eventDate;
+ private Date eventDate;
  private Integer guestCount;
  private String paymentStatus;
  public Integer getEventId() {
@@ -48,10 +48,10 @@ public class Event {
  public void setVenue(String venue) {
 	this.venue = venue;
  }
- public String getEventDate() {
+ public Date getEventDate() {
 	return eventDate;
  }
- public void setEventDate(String eventDate) {
+ public void setEventDate(Date eventDate) {
 	this.eventDate = eventDate;
  }
  public Integer getGuestCount() {

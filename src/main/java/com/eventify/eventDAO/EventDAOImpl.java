@@ -29,7 +29,7 @@ public class EventDAOImpl implements EventDAO {
 			
 			ps.setInt(1, e.getUserId());
 			ps.setString(2, e.getEventType());
-			ps.setString(3, e.getEventDate());
+			ps.setDate(3, e.getEventDate());
 			ps.setString(4, e.getVenue());
 			ps.setInt(5, e.getGuestCount());
 			
@@ -66,7 +66,7 @@ public class EventDAOImpl implements EventDAO {
 				event.setEventId(rs.getInt("event_id"));
 		        event.setUserId(rs.getInt("user_id"));
 		        event.setEventType(rs.getString("event_type"));
-		        event.setEventDate(rs.getString("event_date"));
+		        event.setEventDate(rs.getDate("event_date"));
 		        event.setVenue(rs.getString("venue"));
 		        event.setGuestCount(rs.getInt("guest_count"));
 		        event.setPaymentStatus(rs.getString("status"));
@@ -98,7 +98,7 @@ public class EventDAOImpl implements EventDAO {
 				event.setEventId(rs.getInt("event_id"));
 		        event.setUserId(rs.getInt("user_id"));
 		        event.setEventType(rs.getString("event_type"));
-		        event.setEventDate(rs.getString("event_date"));
+		        event.setEventDate(rs.getDate("event_date"));
 		        event.setVenue(rs.getString("venue"));
 		        event.setGuestCount(rs.getInt("guest_count"));
 		        event.setPaymentStatus(rs.getString("status"));

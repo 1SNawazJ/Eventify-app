@@ -50,7 +50,7 @@ public class UserDAOimpl implements UserDAO {
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,email);
 			ps.setString(2, password);
-			ResultSet rs =ps.executeQuery();
+			ResultSet rs=ps.executeQuery();
 			
 			while(rs.next()) {
 				u = new User();

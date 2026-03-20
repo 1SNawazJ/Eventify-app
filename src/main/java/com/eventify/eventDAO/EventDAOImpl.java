@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,7 @@ public class EventDAOImpl implements EventDAO {
 		String query="INSERT  INTO events (user_id, event_type, event_date, venue, guest_count) VALUES (?, ?, ?, ?, ?)";
 		
 		try {
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement ps = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			
 			ps.setInt(1, e.getUserId());
 			ps.setString(2, e.getEventType());

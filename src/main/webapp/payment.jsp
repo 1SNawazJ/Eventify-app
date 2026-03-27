@@ -1,7 +1,4 @@
-<%-- payment.jsp - PAYMENT PAGE --%>
-<%-- PURPOSE: User selects payment method and pays --%>
-<%-- Form submits to: PaymentServlet --%>
-
+<%-- payment.jsp - PREMIUM PAYMENT --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String role = (String) session.getAttribute("role");
@@ -14,87 +11,151 @@
 <%@ include file="HNF/header.jsp" %>
 <%@ include file="HNF/navbar.jsp" %>
 
-<main>
-    <div class="container py-4">
+<main style="background: var(--cream); padding-bottom: 60px;">
+    
+    <div class="page-header-premium">
+        <div class="container">
+            <span style="font-family: var(--font-script); font-size: 1.2rem; color: var(--gold-light);">
+                Final step
+            </span>
+            <h2>Secure Payment</h2>
+            <p>Complete your payment to confirm the booking</p>
+        </div>
+    </div>
+    
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="card border-0 shadow p-4">
-                    <h3 class="fw-bold text-center mb-3">
-                        <i class="fas fa-credit-card text-primary me-2"></i>Payment
-                    </h3>
-
-                    <%-- Show amount --%>
-                    <div class="text-center bg-light rounded p-3 mb-4">
-                        <small class="text-muted">Amount to Pay</small>
-                        <h2 class="text-primary fw-bold">₹<%= totalAmount %></h2>
+            <div class="col-lg-6 col-md-8">
+                <div class="form-premium">
+                    
+                    <!-- Amount Display -->
+                    <div class="total-display-premium" style="margin-bottom: 30px;">
+                        <div style="font-size: 0.8rem; color: var(--medium-gray); text-transform: uppercase; 
+                                    letter-spacing: 1.5px; font-weight: 600; margin-bottom: 5px;">Amount to Pay</div>
+                        <div class="total-amount">₹<%= totalAmount %></div>
                     </div>
-
+                    
                     <% if (request.getAttribute("errorMsg") != null) { %>
-                    <div class="alert alert-danger">
+                    <div class="alert alert-premium alert-danger alert-dismissible fade show">
+                        <i class="fas fa-exclamation-circle me-2"></i>
                         <%= request.getAttribute("errorMsg") %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                     <% } %>
-
+                    
                     <form action="PaymentServlet" method="post">
                         <input type="hidden" name="eventId" value="<%= eventId %>">
                         <input type="hidden" name="amount" value="<%= totalAmount %>">
-
-                        <%-- Payment Method Dropdown --%>
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Payment Method *</label>
-                            <select class="form-select" id="paymentMethod" name="paymentMethod" required>
-                                <option value="" disabled selected>-- Choose Method --</option>
-                                <option value="CARD">💳 Credit/Debit Card</option>
-                                <option value="UPI">📱 UPI</option>
-                                <option value="NETBANKING">🏦 Net Banking</option>
+                        
+                        <!-- Payment Method -->
+                        <div class="mb-4">
+                            <label class="form-label" style="font-weight: 700; margin-bottom: 15px;">
+                                <i class="fas fa-wallet me-1" style="color: var(--gold);"></i> 
+                                Select Payment Method
+                            </label>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-4">
+                                    <div class="payment-method-option" onclick="selectPayment(this, 'CARD')">
+                                        <div class="method-icon"><i class="fas fa-credit-card"></i></div>
+                                        <div class="method-name">Card</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="payment-method-option" onclick="selectPayment(this, 'UPI')">
+                                        <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                                        <div class="method-name">UPI</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="payment-method-option" onclick="selectPayment(this, 'NETBANKING')">
+                                        <div class="method-icon"><i class="fas fa-university"></i></div>
+                                        <div class="method-name">Bank</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <select class="form-select" id="paymentMethod" name="paymentMethod" required 
+                                    style="display: none;">
+                                <option value="" selected>Select method above</option>
+                                <option value="CARD">Card</option>
+                                <option value="UPI">UPI</option>
+                                <option value="NETBANKING">Net Banking</option>
                             </select>
                         </div>
-
-                        <%-- Card Details (shown only when CARD selected) --%>
-                        <div id="cardDetails" style="display: none;" class="bg-light rounded p-3 mb-3">
-                            <h6 class="fw-bold mb-3">Card Details</h6>
-                            <div class="mb-2">
-                                <label class="form-label">Card Number</label>
-                                <input type="text" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19">
-                            </div>
-                            <div class="row g-2">
-                                <div class="col-6">
-                                    <label class="form-label">Expiry</label>
-                                    <input type="text" class="form-control" placeholder="MM/YY">
+                        
+                        <!-- Card Details -->
+                        <div id="cardDetails" style="display: none;">
+                            <div style="background: var(--pearl); border-radius: var(--radius-md); padding: 25px; margin-bottom: 20px;">
+                                <h6 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 18px; color: var(--charcoal);">
+                                    <i class="fas fa-credit-card me-2" style="color: var(--primary);"></i>Card Details
+                                </h6>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Card Number" maxlength="19" 
+                                           style="background: white;">
                                 </div>
-                                <div class="col-6">
-                                    <label class="form-label">CVV</label>
-                                    <input type="password" class="form-control" placeholder="***" maxlength="3">
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" placeholder="MM/YY" maxlength="5" 
+                                               style="background: white;">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="password" class="form-control" placeholder="CVV" maxlength="4" 
+                                               style="background: white;">
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <input type="text" class="form-control" placeholder="Cardholder Name" 
+                                           style="background: white;">
                                 </div>
                             </div>
                         </div>
-
-                        <%-- UPI Details --%>
-                        <div id="upiDetails" style="display: none;" class="bg-light rounded p-3 mb-3">
-                            <label class="form-label fw-bold">UPI ID</label>
-                            <input type="text" class="form-control" placeholder="yourname@upi">
+                        
+                        <!-- UPI Details -->
+                        <div id="upiDetails" style="display: none;">
+                            <div style="background: var(--pearl); border-radius: var(--radius-md); padding: 25px; margin-bottom: 20px;">
+                                <h6 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 18px; color: var(--charcoal);">
+                                    <i class="fas fa-mobile-alt me-2" style="color: var(--primary);"></i>UPI Payment
+                                </h6>
+                                <input type="text" class="form-control" placeholder="yourname@upi" style="background: white;">
+                            </div>
                         </div>
-
-                        <%-- Net Banking --%>
-                        <div id="netbankingDetails" style="display: none;" class="bg-light rounded p-3 mb-3">
-                            <label class="form-label fw-bold">Select Bank</label>
-                            <select class="form-select">
-                                <option>State Bank of India</option>
-                                <option>HDFC Bank</option>
-                                <option>ICICI Bank</option>
-                                <option>Axis Bank</option>
-                            </select>
+                        
+                        <!-- NetBanking -->
+                        <div id="netbankingDetails" style="display: none;">
+                            <div style="background: var(--pearl); border-radius: var(--radius-md); padding: 25px; margin-bottom: 20px;">
+                                <h6 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 18px; color: var(--charcoal);">
+                                    <i class="fas fa-university me-2" style="color: var(--primary);"></i>Net Banking
+                                </h6>
+                                <select class="form-select" style="background: white;">
+                                    <option disabled selected>Select your bank</option>
+                                    <option>State Bank of India</option>
+                                    <option>HDFC Bank</option>
+                                    <option>ICICI Bank</option>
+                                    <option>Axis Bank</option>
+                                </select>
+                            </div>
                         </div>
-
-                        <p class="text-center text-muted small">
-                            <i class="fas fa-shield-alt text-success me-1"></i>
-                            Secured with 256-bit encryption
-                        </p>
-
-                        <button type="submit" class="btn btn-success w-100 py-2 btn-lg"
+                        
+                        <!-- Security Badge -->
+                        <div class="text-center mb-4">
+                            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; 
+                                        background: var(--success-light); border-radius: var(--radius-xl); font-size: 0.85rem;">
+                                <i class="fas fa-shield-alt" style="color: var(--success);"></i>
+                                <span style="color: var(--success); font-weight: 500;">256-bit SSL Encrypted</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-premium btn-premium-success w-100 py-3" 
+                                style="font-size: 1.1rem;"
                                 onclick="return confirm('Confirm payment of ₹<%= totalAmount %>?')">
                             <i class="fas fa-lock me-2"></i>Pay ₹<%= totalAmount %>
                         </button>
+                        
+                        <a href="VendorServlet?action=list&eventId=<%= eventId %>" 
+						   class="btn btn-premium btn-premium-outline w-100" style="margin-top: 10px;">
+						    <i class="fas fa-arrow-left me-1"></i> Back
+						</a>
                     </form>
                 </div>
             </div>
@@ -102,17 +163,22 @@
     </div>
 </main>
 
-<%-- Show/hide payment details based on selection --%>
 <script>
-document.getElementById('paymentMethod').addEventListener('change', function() {
+function selectPayment(element, method) {
+    document.querySelectorAll('.payment-method-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+    });
+    element.classList.add('selected');
+    document.getElementById('paymentMethod').value = method;
+    
     document.getElementById('cardDetails').style.display = 'none';
     document.getElementById('upiDetails').style.display = 'none';
     document.getElementById('netbankingDetails').style.display = 'none';
-
-    if (this.value === 'CARD') document.getElementById('cardDetails').style.display = 'block';
-    if (this.value === 'UPI') document.getElementById('upiDetails').style.display = 'block';
-    if (this.value === 'NETBANKING') document.getElementById('netbankingDetails').style.display = 'block';
-});
+    
+    if (method === 'CARD') document.getElementById('cardDetails').style.display = 'block';
+    if (method === 'UPI') document.getElementById('upiDetails').style.display = 'block';
+    if (method === 'NETBANKING') document.getElementById('netbankingDetails').style.display = 'block';
+}
 </script>
 
 <%@ include file="HNF/footer.jsp" %>

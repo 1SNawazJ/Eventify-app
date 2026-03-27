@@ -27,7 +27,7 @@
                 
                 <% if (isLoggedIn && !isAdmin) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="DashboardServlet">Dashboard</a>
+                    <a class="nav-link" href="Dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="create-event.jsp">Plan Event</a>
@@ -66,7 +66,7 @@
                     </span>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-nav-logout" href="LogoutServlet">
+                    <a class="btn btn-nav-logout" href="Logout">
                         <i class="fas fa-sign-out-alt me-1"></i> Logout
                     </a>
                 </li>

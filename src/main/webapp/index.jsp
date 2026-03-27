@@ -86,7 +86,7 @@
                             <p class="card-text">Your fairy tale begins here</p>
                             <p class="card-price">From ₹50,000</p>
                         </div>
-                        <a href="login.jsp" class="card-arrow">
+                        <a href="<%= session.getAttribute("userId") != null ? "create-event.jsp?eventType=MARRIAGE" : "login.jsp" %>"  class="card-arrow">
                             <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -105,7 +105,7 @@
                             <p class="card-text">Celebrate every milestone</p>
                             <p class="card-price">From ₹15,000</p>
                         </div>
-                        <a href="login.jsp" class="card-arrow">
+                        <a href="<%= session.getAttribute("userId") != null ? "create-event.jsp?eventType=BIRTHDAY" : "login.jsp" %>" class="card-arrow">
                             <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -124,7 +124,7 @@
                             <p class="card-text">Relive your love story</p>
                             <p class="card-price">From ₹25,000</p>
                         </div>
-                        <a href="login.jsp" class="card-arrow">
+                        <a href="<%= session.getAttribute("userId") != null ? "create-event.jsp?eventType=ANNIVERSARY" : "login.jsp" %>" class="card-arrow">
                             <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -143,7 +143,7 @@
                             <p class="card-text">Impress & inspire</p>
                             <p class="card-price">From ₹75,000</p>
                         </div>
-                        <a href="login.jsp" class="card-arrow">
+                        <a href="<%= session.getAttribute("userId") != null ? "create-event.jsp?eventType=CORPORATE" : "login.jsp" %>" class="card-arrow">
                             <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -157,7 +157,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Why Us</span>
-                <h2 class="section-title">The SmartEvent Difference</h2>
+                <h2 class="section-title">The Eventify Difference</h2>
                 <p class="section-subtitle">
                     We don't just plan events. We craft experiences that 
                     leave lasting impressions.
@@ -315,7 +315,7 @@
                         </div>
                         <div class="quote-icon">"</div>
                         <p class="testimonial-text">
-                            SmartEvent turned our wedding into a fairy tale. Every 
+                            Eventify turned our wedding into a fairy tale. Every 
                             detail was perfect, from the stunning décor to the 
                             incredible catering. We couldn't have asked for more!
                         </p>
@@ -368,7 +368,7 @@
                         <div class="quote-icon">"</div>
                         <p class="testimonial-text">
                             Surprised my parents with a golden anniversary celebration. 
-                            SmartEvent made it magical. The attention to detail was 
+                            Eventify made it magical. The attention to detail was 
                             beyond our expectations!
                         </p>
                         <div class="testimonial-author">

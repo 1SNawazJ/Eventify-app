@@ -1,29 +1,46 @@
 package com.eventify.model;
 
+import java.sql.Date;
+
 public class Event {
- private Integer event_id;
- private Integer user_id;
- private String event_type;
+ 
+ 
+ public Event(Integer userId, String eventType,Date eventDate, String venue, Integer guestCount) {
+		super();
+		this.userId = userId;
+		this.eventType = eventType;
+		this.venue = venue;
+		this.eventDate = eventDate;
+		this.guestCount = guestCount;
+		
+	}
+ public Event() {
+	 
+ }
+ private Integer eventId;
+ private Integer userId;
+ private String eventType;
  private String venue;
- private Integer guest_count;
- private String paymentstatus;
- public Integer getEvent_id() {
-	return event_id;
+ private Date eventDate;
+ private Integer guestCount;
+ private String paymentStatus;
+ public Integer getEventId() {
+	return eventId;
  }
- public void setEvent_id(Integer event_id) {
-	this.event_id = event_id;
+ public void setEventId(Integer eventId) {
+	this.eventId = eventId;
  }
- public Integer getUser_id() {
-	return user_id;
+ public Integer getUserId() {
+	return userId;
  }
- public void setUser_id(Integer user_id) {
-	this.user_id = user_id;
+ public void setUserId(Integer userId) {
+	this.userId = userId;
  }
- public String getEvent_type() {
-	return event_type;
+ public String getEventType() {
+	return eventType;
  }
- public void setEvent_type(String event_type) {
-	this.event_type = event_type;
+ public void setEventType(String eventType) {
+	this.eventType = eventType;
  }
  public String getVenue() {
 	return venue;
@@ -31,32 +48,27 @@ public class Event {
  public void setVenue(String venue) {
 	this.venue = venue;
  }
- public Integer getGuest_count() {
-	return guest_count;
+ public Date getEventDate() {
+	return eventDate;
  }
- public void setGuest_count(Integer guest_count) {
-	this.guest_count = guest_count;
+ public void setEventDate(Date eventDate) {
+	this.eventDate = eventDate;
  }
- public String getPaymentstatus() {
-	return paymentstatus;
+ public Integer getGuestCount() {
+	return guestCount;
  }
- public void setPaymentstatus(String paymentstatus) {
-	this.paymentstatus = paymentstatus;
+ public void setGuestCount(Integer guestCount) {
+	this.guestCount = guestCount;
+ }
+ public String getPaymentStatus() {
+	return paymentStatus;
+ }
+ public void setPaymentStatus(String paymentStatus) {
+	this.paymentStatus = paymentStatus;
  }
  @Override
  public String toString() {
-	return "Event [event_id=" + event_id + ", user_id=" + user_id + ", event_type=" + event_type + ", venue=" + venue
-			+ ", guest_count=" + guest_count + ", paymentstatus=" + paymentstatus + "]";
+	return "Event [eventId=" + eventId + ", userId=" + userId + ", eventType=" + eventType + ", venue=" + venue
+			+ ", eventDate=" + eventDate + ", guestCount=" + guestCount + ", paymentStatus=" + paymentStatus + "]";
  }
- public Event(Integer event_id, Integer user_id, String event_type, String venue, Integer guest_count,
-		String paymentstatus) {
-	super();
-	this.event_id = event_id;
-	this.user_id = user_id;
-	this.event_type = event_type;
-	this.venue = venue;
-	this.guest_count = guest_count;
-	this.paymentstatus = paymentstatus;
- }
- 
 }

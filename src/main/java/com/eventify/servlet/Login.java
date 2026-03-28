@@ -36,7 +36,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 		if("ADMIN".equals(u.getRole())) {
 			resp.sendRedirect("AdminDashboardServlet");
 		}else {
-			resp.sendRedirect("DashBoardServlet");
+			resp.sendRedirect("Dashboard");
 		}
 	}else {
 		req.setAttribute("errorMsg", "Invalid email or Password");

@@ -1,103 +1,81 @@
-<%-- includes/navbar.jsp --%>
-<%-- PURPOSE: Navigation bar shown on ALL pages --%>
-<%-- Shows different links based on login status and role --%>
-
+<%-- includes/navbar.jsp - PREMIUM NAVBAR --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    // Read session data to check if user is logged in
     String loggedInUser = (String) session.getAttribute("userName");
     String userRole = (String) session.getAttribute("role");
     boolean isLoggedIn = (loggedInUser != null);
     boolean isAdmin = "ADMIN".equals(userRole);
 %>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-premium sticky-top">
     <div class="container">
-        <!-- Brand/Logo -->
-        <a class="navbar-brand fw-bold text-primary" href="index.jsp">
-            <i class="fas fa-calendar-star me-2"></i>Eventify
+        <a class="navbar-brand" href="index.jsp">
+            <span class="brand-icon"><i class="fas fa-gem"></i></span>
+            Eventify
         </a>
-
-        <!-- Mobile menu button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        
         <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Left side links -->
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.jsp">
-                        <i class="fas fa-home me-1"></i> Home
-                    </a>
+                    <a class="nav-link" href="index.jsp">Home</a>
                 </li>
-
-                <%-- Show these only for logged-in CUSTOMERS --%>
+                
                 <% if (isLoggedIn && !isAdmin) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="DashboardServlet">
-                        <i class="fas fa-tachometer-alt me-1"></i> Dashboard
-                    </a>
+                    <a class="nav-link" href="Dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="create-event.jsp">
-                        <i class="fas fa-plus-circle me-1"></i> Create Event
-                    </a>
+                    <a class="nav-link" href="create-event.jsp">Plan Event</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="MyEventsServlet">
-                        <i class="fas fa-calendar-check me-1"></i> My Events
-                    </a>
+                    <a class="nav-link" href="MyEventsServlet">My Events</a>
                 </li>
                 <% } %>
-
-                <%-- Show these only for ADMIN --%>
+                
                 <% if (isAdmin) { %>
                 <li class="nav-item">
                     <a class="nav-link" href="AdminDashboardServlet">
-                        <i class="fas fa-shield-alt me-1"></i> Admin Dashboard
+                        <i class="fas fa-shield-alt me-1"></i> Admin
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="AdminVendorServlet?action=list">
-                        <i class="fas fa-store me-1"></i> Manage Vendors
-                    </a>
+                    <a class="nav-link" href="AdminVendorServlet?action=list">Vendors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="AdminEventServlet?action=list">
-                        <i class="fas fa-calendar-alt me-1"></i> Manage Events
-                    </a>
+                    <a class="nav-link" href="AdminEventServlet?action=list">Events</a>
                 </li>
                 <% } %>
             </ul>
-
-            <!-- Right side links -->
+            
             <ul class="navbar-nav">
                 <% if (isLoggedIn) { %>
                 <li class="nav-item d-flex align-items-center me-3">
-                    <span class="navbar-text">
-                        <i class="fas fa-user-circle me-1"></i>
-                        <strong><%= loggedInUser %></strong>
+                    <span class="user-badge">
+                        <span class="avatar-sm">
+                            <%= loggedInUser.substring(0, 1).toUpperCase() %>
+                        </span>
+                        <%= loggedInUser %>
                         <% if (isAdmin) { %>
-                        <span class="badge bg-danger ms-1">ADMIN</span>
+                        <span class="badge bg-danger" style="font-size: 0.65rem;">ADMIN</span>
                         <% } %>
                     </span>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-danger btn-sm" href="Logout">
+                    <a class="btn btn-nav-logout" href="Logout">
                         <i class="fas fa-sign-out-alt me-1"></i> Logout
                     </a>
                 </li>
                 <% } else { %>
                 <li class="nav-item me-2">
-                    <a class="nav-link" href="login.jsp">
-                        <i class="fas fa-sign-in-alt me-1"></i> Login
-                    </a>
+                    <a class="nav-link" href="login.jsp">Sign In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-primary btn-sm" href="register.jsp">
-                        <i class="fas fa-user-plus me-1"></i> Register
-                    </a>
+                    <a class="btn btn-nav-primary" href="register.jsp">Get Started</a>
                 </li>
                 <% } %>
             </ul>

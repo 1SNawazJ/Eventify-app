@@ -47,6 +47,14 @@ public class BookingServlet extends HttpServlet {
             req.getRequestDispatcher("vendor-list.jsp").forward(req, resp);
             return;
         }
+        if (eventIdStr == null || eventIdStr.isEmpty()) {
+            eventIdStr = (String) session.getAttribute("currentEventId");
+        }
+        if (eventIdStr == null) {
+            req.setAttribute("errorMsg", "Session expired. Please create your event again.");
+            resp.sendRedirect("create-event.jsp");
+            return;
+        }
 
         Integer eventId = Integer.parseInt(eventIdStr);
 
